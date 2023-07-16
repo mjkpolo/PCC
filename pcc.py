@@ -3,7 +3,6 @@
 import torch
 import argparse
 import os
-import pickle
 
 class PCC(torch.nn.Module):
     def __init__(self, data,
@@ -70,7 +69,7 @@ if __name__ == "__main__":
     parser.add_argument('-n', '--neurons', help='Number of neurons', type=int, required=True)
     parser.add_argument('-p', '--m-prime', help='batches per sample', type=int, required=True)
     parser.add_argument('-b', '--batch', help='Unary bits per batch', type=int, required=True)
-    parser.add_argument('-t', '--template-data', help='Pickle of template', type=str, required=True)
-    parser.add_argument('-s', '--sample-data', help='Pickle of sample', type=str, required=True)
+    parser.add_argument('-t', '--template-data', help='Tensor template', type=str, required=True)
+    parser.add_argument('-s', '--sample-data', help='Tensor sample', type=str, required=True)
     args = parser.parse_args()
     exit(main(args))

@@ -3,7 +3,6 @@
 import torch
 import argparse
 import os
-import pickle
 
 
 def main(args):
@@ -31,7 +30,7 @@ if __name__ == "__main__":
     parser.add_argument('-p', '--m-prime', help='batches per sample', type=int, required=True)
     parser.add_argument('-b', '--batch', help='Unary bits per batch', type=int, required=True)
     parser.add_argument('-s', '--seed', help='Random seed', type=int, required=True)
-    parser.add_argument('-o', '--output', help='Output of pickle', type=str, required=True)
-    parser.add_argument('-j', '--join', help='Pickle to append to', type=str)
+    parser.add_argument('-o', '--output', help='Output of tensor', type=str, required=True)
+    parser.add_argument('-j', '--join', help='Tensor to append to', type=str)
     args = parser.parse_args()
     exit(main(args))
