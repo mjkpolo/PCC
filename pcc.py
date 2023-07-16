@@ -23,7 +23,7 @@ class PCC(torch.nn.Module):
         assert data.shape == (self.Mprime, self.N)
 
         self.template = data
-        self.wprime = torch.empty((self.Mprime, self.N), dtype=self.stype, device=self.device)
+        self.wprime = torch.zeros((self.Mprime, self.N), dtype=self.stype, device=self.device)
         self.C1 = torch.tensor(self.Mprime * self.N, dtype=self.stype, device=self.device)
         self.C2 = torch.sum(self.template, dtype=self.stype)
         self.C3 = self.C1*torch.sum(self.template**2, dtype=self.stype)-self.C2**2
@@ -49,7 +49,7 @@ class PCC(torch.nn.Module):
 def main(args):
     # Small scale test on M1 mac
     stype=torch.int64
-    device = torch.device("mps")
+    device = torch.device("cpu")
 
     N = args.neurons
     B = args.batch

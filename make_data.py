@@ -8,7 +8,7 @@ import pickle
 
 def main(args):
     stype=torch.int64
-    device = torch.device('mps')
+    device = torch.device('cpu')
 
     N = args.neurons
     B = args.batch
@@ -18,10 +18,9 @@ def main(args):
     tensor = torch.randint(0, B, (Mprime, N), dtype=stype, device=device)
     if args.join is not None:
         with open(args.join, 'rb') as f:
-            tensor = torch.cat((tensor,torch.load(f, map_location=torch.device('mps'))), dim=0)
+            tensor = torch.cat((torch.load(f, map_location=torch.device('cpu')), tensor), dim=0)
     with open(args.output, 'wb') as f:
         torch.save(tensor, f)
-        print(tensor)
 
     return 0
 
