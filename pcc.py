@@ -9,7 +9,7 @@ class PCC(torch.nn.Module):
     def __init__(self, data,
                  M=20, N=6, B=5,
                  stype=torch.int64,
-                 device=torch.device("cpu")):
+                 device=torch.device("mps")):
         super(PCC, self).__init__()
         self.timestep = 0
         self.stype = stype
@@ -44,12 +44,11 @@ class PCC(torch.nn.Module):
         
         return (r**(1/2))
 
-#def load_data(device, digit, event):
 
 def main(args):
     # Small scale test on M1 mac
     stype=torch.int64
-    device = torch.device("cpu")
+    device = torch.device("mps")
 
     N = args.neurons
     B = args.batch
@@ -59,11 +58,9 @@ def main(args):
     sample_tensor = torch.load(args.sample_data, map_location=device)
     model = PCC(template_tensor, stype=stype, device=device, N=N, M=Mprime*B, B=B)
 
-    m = 0
     d = None
     for d in sample_tensor:
         r = model(d).item()
-        m = max(r, m)
         print(r)
     return 0
 
