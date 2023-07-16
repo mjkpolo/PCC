@@ -36,10 +36,12 @@ class PCC(torch.nn.Module):
             r = torch.tensor(0, dtype=self.stype, device=self.device)
         else:
             self.wprime = torch.cat((self.wprime[1:], bin.unsqueeze(0)), dim=0)
-        S1 = torch.sum(self.wprime*self.template, dtype=self.stype)
-        S2 = torch.sum(self.wprime, dtype=self.stype)
-        S3 = torch.sum(self.wprime**2, dtype=self.stype)
-        r = ((self.C1*S1 - self.C2*S2)**2)/(self.C3*(self.C1*S3 - S2**2))
+
+        if self.timestep == self.Mprime:
+            S1 = torch.sum(self.wprime*self.template, dtype=self.stype)
+            S2 = torch.sum(self.wprime, dtype=self.stype)
+            S3 = torch.sum(self.wprime**2, dtype=self.stype)
+            r = ((self.C1*S1 - self.C2*S2)**2)/(self.C3*(self.C1*S3 - S2**2))
         
         return (r**(1/2))
 
